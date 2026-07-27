@@ -5,127 +5,127 @@ import "charm.land/lipgloss/v2"
 var (
 	titleStyle = lipgloss.NewStyle().
 			Bold(true).
-			Foreground(lipgloss.Color("#38BDF8"))
+			Foreground(colAccent)
 
 	titleHintStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#64748B"))
+			Foreground(colDim)
 
 	tableStyle = lipgloss.NewStyle().
 			BorderStyle(lipgloss.RoundedBorder()).
-			BorderForeground(lipgloss.Color("#0369A1"))
+			BorderForeground(colBorder)
 
 	helpStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#64748B")).
+			Foreground(colDim).
 			MarginTop(1)
 
 	keyStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#7DD3FC")).
+			Foreground(colKey).
 			Bold(true)
 
 	errorStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#F87171")).
+			Foreground(colDanger).
 			Bold(true)
 
 	stoppedRowStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#52525B"))
+			Foreground(colDim)
 
 	pausedRowStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#92400E"))
+			Foreground(colPaused)
 
 	emptyStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#334155")).
+			Foreground(colDim).
 			MarginLeft(2).
 			MarginTop(1)
 
 	confirmStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#FCD34D")).
+			Foreground(colWarn).
 			Bold(true)
 
 	confirmNameStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#F8FAFC")).
+				Foreground(colBright).
 				Bold(true)
 
 	logsDividerStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#0369A1"))
+				Foreground(colBorder)
 
 	logsTitleStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#38BDF8")).
+			Foreground(colAccent).
 			Bold(true)
 
 	logsLineStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#CBD5E1"))
+			Foreground(colText)
 
 	logsTimestampStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#64748B"))
+				Foreground(colDim)
 
 	logsHighlightStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#1C1917")).
-				Background(lipgloss.Color("#FDE047")).
+				Foreground(colBlack).
+				Background(colWarn).
 				Bold(true)
 
 	inspectSectionStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#A78BFA")).
+				Foreground(colSection).
 				Bold(true)
 
 	inspectValueStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#CBD5E1"))
+				Foreground(colText)
 
 	contextActiveStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#4ADE80")).
+				Foreground(colOK).
 				Bold(true)
 
 	contextCursorStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#F0F9FF")).
-				Background(lipgloss.Color("#0369A1"))
+				Foreground(colBright).
+				Background(colBorder)
 
 	trendUpStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#F87171")).
+			Foreground(colDanger).
 			Bold(true)
 
 	trendDownStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#4ADE80")).
+			Foreground(colOK).
 			Bold(true)
 
 	trendSteadyStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#475569"))
+				Foreground(colDim)
 
 	sparklineStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#475569"))
+			Foreground(colDim)
 
 	diagnosisWarnStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#FCD34D")).Bold(true)
+				Foreground(colWarn).Bold(true)
 
 	diagnosisErrorStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#F87171")).Bold(true)
+				Foreground(colDanger).Bold(true)
 
 	eventStartStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#4ADE80")).Bold(true)
+			Foreground(colOK).Bold(true)
 
 	eventStopStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#F87171")).Bold(true)
+			Foreground(colDanger).Bold(true)
 
 	eventWarnStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#FCD34D")).Bold(true)
+			Foreground(colWarn).Bold(true)
 
 	eventDimStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#475569"))
+			Foreground(colDim)
 
 	eventTimeStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#64748B"))
+			Foreground(colDim)
 
 	eventTypeStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#7DD3FC"))
+			Foreground(colKey)
 
 	eventNameStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#E2E8F0"))
+			Foreground(colText)
 
 	collapsedRowStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#64748B"))
+				Foreground(colDim)
 
 	detailRowStyle = lipgloss.NewStyle().
-			Foreground(lipgloss.Color("#64748B"))
+			Foreground(colDim)
 
 	detailRowSelectedStyle = lipgloss.NewStyle().
-				Foreground(lipgloss.Color("#F0F9FF")).
-				Background(lipgloss.Color("#0369A1"))
+				Foreground(colBright).
+				Background(colBorder)
 )

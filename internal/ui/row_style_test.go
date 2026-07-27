@@ -9,7 +9,7 @@ import (
 	"github.com/pivovarit/tdocker/internal/docker"
 )
 
-const dimGray = "38;2;82;82;91" // stoppedRowStyle
+var dimGray = seqDim // stoppedRowStyle foreground
 
 func mkMixed(n int) []docker.Container {
 	cs := make([]docker.Container, n)

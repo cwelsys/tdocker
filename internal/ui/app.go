@@ -24,7 +24,6 @@ const (
 	logsTailDefault  = "200"
 
 	chromeTitle        = 1
-	chromeTitleMargin  = 1
 	chromeTitleNewline = 1
 	chromeBorderTop    = 1
 	chromeBorderBottom = 1
@@ -32,7 +31,7 @@ const (
 	chromeHelpMargin   = 1
 	chromeHelp         = 1
 
-	tableChrome = chromeTitle + chromeTitleMargin + chromeTitleNewline +
+	tableChrome = chromeTitle + chromeTitleNewline +
 		chromeBorderTop + chromeBorderBottom +
 		chromeHelpNewline + chromeHelpMargin + chromeHelp
 )

@@ -15,6 +15,9 @@ import (
 
 var ansiRe = regexp.MustCompile(`\x1b\[[0-9;]*m`)
 
+// appGlyph is the title mark. Swap for a Nerd Font docker glyph ("\uf308") if preferred.
+const appGlyph = "\U0001F433"
+
 func isContainerLine(line string) bool {
 	plain := strings.TrimLeft(ansiRe.ReplaceAllString(line, ""), " ")
 	if plain == "" {
@@ -60,7 +63,7 @@ func (m App) View() tea.View {
 
 	filtered := m.filtered()
 
-	leftPlain := " tdocker  ·  " + mode + " [A]  ·  / filter  ·  r refresh"
+	leftPlain := " " + appGlyph + "  ·  " + mode + " [A]  ·  / filter  ·  r refresh"
 	if m.filterQuery != "" {
 		leftPlain += ": " + fmt.Sprintf("%q", m.filterQuery)
 	}
@@ -79,7 +82,7 @@ func (m App) View() tea.View {
 		if updatePlain != "" {
 			updateW = len(updatePlain) + 5
 		}
-		maxNameW := m.width - len(leftPlain) - len(ctxPrefix) - len(ctxSuffix) - updateW - minPad
+		maxNameW := m.width - lipgloss.Width(leftPlain) - len(ctxPrefix) - len(ctxSuffix) - updateW - minPad
 		if maxNameW < 1 {
 			maxNameW = 1
 		}
@@ -98,13 +101,13 @@ func (m App) View() tea.View {
 
 	pad := minPad
 	if rightPlain != "" && m.width > 0 {
-		if p := m.width - len(leftPlain) - len(rightPlain); p > pad {
+		if p := m.width - lipgloss.Width(leftPlain) - lipgloss.Width(rightPlain); p > pad {
 			pad = p
 		}
 	}
 
 	sep := titleHintStyle.Render("  ·  ")
-	styledLeft := titleStyle.Render(" tdocker") + sep +
+	styledLeft := titleStyle.Render(" "+appGlyph) + sep +
 		titleStyle.Render(mode) + titleHintStyle.Render(" [A]") + sep +
 		titleHintStyle.Render("/ filter") + sep +
 		titleHintStyle.Render("r refresh")
@@ -122,7 +125,7 @@ func (m App) View() tea.View {
 	}
 
 	b.WriteString(styledLeft + strings.Repeat(" ", pad) + styledRight)
-	b.WriteString("\n\n")
+	b.WriteString("\n")
 
 	switch {
 	case m.helpVisible:
@@ -217,15 +220,15 @@ func (m App) View() tea.View {
 					switch filtered[containerIdx].State {
 					case docker.StateCollapsed:
 						if proj := filtered[containerIdx].ComposeProject(); proj != "" && !m.projectHasRunning(proj) {
-							lines[i] = stoppedRowStyle.Render(strings.ReplaceAll(line, "\x1b[39m", "\x1b[38;2;82;82;91m"))
+							lines[i] = stoppedRowStyle.Render(strings.ReplaceAll(line, seqReset, seqDim))
 						} else {
-							lines[i] = collapsedRowStyle.Render(strings.ReplaceAll(line, "\x1b[39m", "\x1b[38;2;100;116;139m"))
+							lines[i] = collapsedRowStyle.Render(strings.ReplaceAll(line, seqReset, seqDim))
 						}
 					case docker.StatePaused:
-						lines[i] = pausedRowStyle.Render(strings.ReplaceAll(line, "\x1b[39m", "\x1b[38;2;146;64;14m"))
+						lines[i] = pausedRowStyle.Render(strings.ReplaceAll(line, seqReset, seqPaused))
 					case docker.StateRunning:
 					default:
-						lines[i] = stoppedRowStyle.Render(strings.ReplaceAll(line, "\x1b[39m", "\x1b[38;2;82;82;91m"))
+						lines[i] = stoppedRowStyle.Render(strings.ReplaceAll(line, seqReset, seqDim))
 					}
 				}
 			}

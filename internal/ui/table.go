@@ -173,13 +173,13 @@ func buildTable(containers []docker.Container, width int, stats map[string]docke
 	s := table.DefaultStyles()
 	s.Header = s.Header.
 		BorderStyle(lipgloss.NormalBorder()).
-		BorderForeground(lipgloss.Color("#0369A1")).
+		BorderForeground(colBorder).
 		BorderBottom(true).
 		Bold(true).
-		Foreground(lipgloss.Color("#38BDF8"))
+		Foreground(colAccent)
 	s.Selected = s.Selected.
-		Foreground(lipgloss.Color("#F0F9FF")).
-		Background(lipgloss.Color("#0369A1")).
+		Foreground(colBright).
+		Background(colBorder).
 		Bold(false)
 	t.SetStyles(s)
 
@@ -211,7 +211,7 @@ func composeTreeChar(containers []docker.Container, i int) string {
 		return ""
 	}
 	if c.State == docker.StateCollapsed {
-		tree := func(ch string) string { return "\x1b[38;2;100;116;139m" + ch + "\x1b[39m" }
+		tree := func(ch string) string { return seqDim + ch + seqReset }
 		return tree("▸")
 	}
 	if c.ComposeProject() == "" {
@@ -221,7 +221,7 @@ func composeTreeChar(containers []docker.Container, i int) string {
 		return ""
 	}
 	p := c.ComposeProject()
-	tree := func(ch string) string { return "\x1b[38;2;100;116;139m" + ch + "\x1b[39m" }
+	tree := func(ch string) string { return seqDim + ch + seqReset }
 
 	prevIdx := i - 1
 	for prevIdx >= 0 && containers[prevIdx].State == docker.StateDetail {

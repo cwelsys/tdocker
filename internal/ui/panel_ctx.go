@@ -119,13 +119,13 @@ func (m App) renderContextPicker() string {
 
 	popup := lipgloss.NewStyle().
 		Border(lipgloss.RoundedBorder()).
-		BorderForeground(lipgloss.Color("#0369A1")).
+		BorderForeground(colBorder).
 		Padding(1, 2).
 		Render(b.String())
 
 	title := " Docker Contexts "
 	styledTitle := logsTitleStyle.Render(title)
-	borderColor := lipgloss.NewStyle().Foreground(lipgloss.Color("#0369A1"))
+	borderColor := lipgloss.NewStyle().Foreground(colBorder)
 
 	popupLines := strings.Split(popup, "\n")
 	if len(popupLines) > 0 {
