@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"regexp"
+	"slices"
 	"strings"
 	"time"
 
@@ -24,6 +25,23 @@ func isContainerLine(line string) bool {
 		return true
 	}
 	return strings.HasPrefix(plain, "▸")
+}
+
+func viewportOffset(lines []string, headerLines int, filtered []docker.Container, fallback int) int {
+	for i := headerLines; i < len(lines); i++ {
+		if !isContainerLine(lines[i]) {
+			continue
+		}
+		fields := strings.Fields(ansiRe.ReplaceAllString(lines[i], ""))
+		if len(fields) == 0 {
+			continue
+		}
+		if idx := slices.IndexFunc(filtered, func(c docker.Container) bool { return c.ID == fields[0] }); idx >= 0 {
+			return idx - (i - headerLines)
+		}
+		break
+	}
+	return fallback
 }
 
 func errorHintFor(err error) string {
@@ -174,12 +192,13 @@ func (m App) View() tea.View {
 			tableView := m.table.View()
 			lines := strings.Split(tableView, "\n")
 			cursor := m.table.Cursor()
+			offset := viewportOffset(lines, headerLines, filtered, m.viewportStart)
 			for i, line := range lines {
 				dataIdx := i - headerLines
 				if dataIdx < 0 {
 					continue
 				}
-				containerIdx := m.viewportStart + dataIdx
+				containerIdx := offset + dataIdx
 				if !isContainerLine(line) {
 					plain := ansiRe.ReplaceAllString(line, "")
 					if containerIdx == cursor {
