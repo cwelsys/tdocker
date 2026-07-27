@@ -274,6 +274,25 @@ func (m App) ensureCursorVisible() App {
 	return m
 }
 
+// sameRendered reports whether two container lists would produce an identical
+// table, so a poll that returns no changes can leave the table (and cursor) alone.
+func sameRendered(a, b []docker.Container) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		x, y := a[i], b[i]
+		if x.ID != y.ID || x.Names != y.Names || x.Image != y.Image ||
+			x.State != y.State || x.Status != y.Status ||
+			x.RunningFor != y.RunningFor || x.Ports != y.Ports ||
+			x.ComposeProject() != y.ComposeProject() ||
+			x.ComposeService() != y.ComposeService() {
+			return false
+		}
+	}
+	return true
+}
+
 func (m App) rebuildTable(selectedID string) App {
 	filtered := m.filtered()
 
@@ -288,7 +307,7 @@ func (m App) rebuildTable(selectedID string) App {
 	if selectedID != "" {
 		if _, ok := m.containersByID[selectedID]; ok {
 			if i := slices.IndexFunc(filtered, func(c docker.Container) bool { return c.ID == selectedID }); i >= 0 {
-				m.table.SetCursor(i)
+				m.table.MoveDown(i)
 				lastRow := i
 				for j := i + 1; j < len(filtered) && filtered[j].State == docker.StateDetail; j++ {
 					lastRow = j

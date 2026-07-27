@@ -207,6 +207,7 @@ func (m App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 	case docker.ContainersMsg:
 		selectedID := m.currentSelectedID()
+		prevSorted := m.sorted
 		m.containers = msg
 		m.sorted = docker.Sort(m.containers)
 		m.containersByID = indexContainers(m.containers)
@@ -219,7 +220,9 @@ func (m App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.fetch.visible = false
 		m.fetch.slow = false
 		m.err = nil
-		m = m.rebuildTable(selectedID)
+		if !sameRendered(prevSorted, m.sorted) {
+			m = m.rebuildTable(selectedID)
+		}
 		return m, nil
 
 	case docker.ErrMsg:
