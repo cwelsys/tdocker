@@ -98,7 +98,7 @@ func (m App) handleMainKey(msg tea.KeyPressMsg) (tea.Model, tea.Cmd) {
 		m.showAll = !m.showAll
 		m.err = nil
 		return m.startFetch()
-	case keyFilter:
+	case keyFilter, keyFilterAlt:
 		m.filtering = true
 		return m, nil
 	case keyLogs:

@@ -6,6 +6,7 @@ const (
 	keyRefresh      = "r"
 	keyToggleAll    = "A"
 	keyFilter       = "/"
+	keyFilterAlt    = "f"
 	keyLogs         = "l"
 	keyStop         = "S"
 	keyRestart      = "R"
