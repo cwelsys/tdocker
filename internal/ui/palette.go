@@ -45,7 +45,8 @@ func fgSeq(idx int) string {
 }
 
 var (
-	seqDim    = fgSeq(idxDim)
-	seqPaused = fgSeq(idxPaused)
-	seqReset  = "\x1b[39m"
+	seqSelectedFg = fgSeq(idxBlack)
+	seqDim        = fgSeq(idxDim)
+	seqPaused     = fgSeq(idxPaused)
+	seqReset      = "\x1b[39m"
 )

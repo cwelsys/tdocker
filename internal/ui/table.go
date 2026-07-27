@@ -178,7 +178,7 @@ func buildTable(containers []docker.Container, width int, stats map[string]docke
 		Bold(true).
 		Foreground(colAccent)
 	s.Selected = s.Selected.
-		Foreground(colBright).
+		Foreground(colBlack).
 		Background(colBorder).
 		Bold(false)
 	t.SetStyles(s)

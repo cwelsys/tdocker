@@ -216,7 +216,9 @@ func (m App) View() tea.View {
 				if containerIdx >= len(filtered) {
 					break
 				}
-				if containerIdx != cursor {
+				if containerIdx == cursor {
+					lines[i] = strings.ReplaceAll(line, seqReset, seqSelectedFg)
+				} else {
 					switch filtered[containerIdx].State {
 					case docker.StateCollapsed:
 						if proj := filtered[containerIdx].ComposeProject(); proj != "" && !m.projectHasRunning(proj) {
